@@ -9,21 +9,22 @@ sess = tf.InteractiveSession()
 
 
 # 定义一些函数：分配系数函数、分配偏置函数、卷积函数、pooling函数
+# 分配系数函数
 def weight_variable(shape):
     initial = tf.truncated_normal(shape, stddev=0.1)  # 均值0标准方差0.1，剔除2倍标准方差之外的随机数据
     return tf.Variable(initial)
 
-
+# 分配偏置函数
 def bias_variable(shape):
     initial = tf.constant(0.1, shape=shape)  # 统一值0.1
     return tf.Variable(initial)
 
-
+# 卷积函数
 def conv2d(x, W):
     # 待操作的数据x，模板W，tensor不同维度上的步长，强制与原tensor等大
     return tf.nn.conv2d(x, W, strides=[1, 1, 1, 1], padding='SAME')
 
-
+# pooling函数
 def max_pool_2x2(x):
     # 平面数据的pool模板2*2，平面数据滑动步长2*2（非重叠的pool）
     return tf.nn.max_pool(x, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
